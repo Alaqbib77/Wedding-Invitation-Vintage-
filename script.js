@@ -1,15 +1,10 @@
 // ============= SOUND EFFECTS =============
-
-// A cinematic "fairy-tale magic" moment — original composition built entirely
-// from oscillators (no samples, nothing copied from any film's actual score):
-// a harp-like glissando, scattered twinkling sparkles, a warm sustained chord,
-// and simple algorithmic reverb so it feels spacious rather than dry/flat.
 function playMagicSparkle(){
     const ctx = new (window.AudioContext || window.webkitAudioContext)();
     const masterGain = ctx.createGain();
     masterGain.gain.value = 1;
 
-    // ---- simple reverb (feedback delay network) ----
+    // ---- simple reverb ----
     const reverbBus = ctx.createGain();
     reverbBus.gain.value = 0.35;
     const delay = ctx.createDelay();
@@ -49,7 +44,7 @@ function playMagicSparkle(){
         pluck(freq * 2, ctx.currentTime + i * 0.045, 0.5, 0.02, "sine"); // octave shimmer
     });
 
-    // ---- warm sustained chord underneath (like a magic "glow") ----
+    // ---- warm sustained chord underneath ----
     const chord = [523.25, 659.25, 783.99, 1046.50]; // C major-ish, bright
     chord.forEach((freq) => {
         const osc = ctx.createOscillator();
@@ -67,7 +62,7 @@ function playMagicSparkle(){
         osc.stop(start + 2.7);
     });
 
-    // ---- scattered twinkling sparkles (randomized high pentatonic notes) ----
+    // ---- scattered twinkling sparkles ----
     const sparkleNotes = [1046.50, 1174.66, 1318.51, 1568.00, 1760.00, 2093.00];
     for (let i = 0; i < 14; i++){
         const freq = sparkleNotes[Math.floor(Math.random() * sparkleNotes.length)];
@@ -97,7 +92,7 @@ function playMagicSparkle(){
     noise.start();
 }
 
-// A soft paper-rustle burst, also synthesized (filtered noise) — plays alongside the chime.
+// A soft paper-rustle burst
 function playRustle(){
     const ctx = new (window.AudioContext || window.webkitAudioContext)();
     const bufferSize = ctx.sampleRate * 0.4;
