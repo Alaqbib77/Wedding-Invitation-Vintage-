@@ -4,7 +4,7 @@ function playMagicSparkle(){
     const masterGain = ctx.createGain();
     masterGain.gain.value = 1;
 
-    // ---- simple reverb ----
+    //---- simple reverb ----
     const reverbBus = ctx.createGain();
     reverbBus.gain.value = 0.35;
     const delay = ctx.createDelay();
@@ -37,14 +37,14 @@ function playMagicSparkle(){
         osc.stop(startTime + dur + 0.05);
     }
 
-    // ---- harp-like glissando run, climbing quickly (major scale) ----
+    //----climbing quickly (major scale) ----
     const glissando = [523.25, 587.33, 659.25, 698.46, 783.99, 880.00, 987.77, 1046.50, 1174.66, 1318.51];
     glissando.forEach((freq, i) => {
         pluck(freq, ctx.currentTime + i * 0.045, 0.9, 0.09, "triangle");
         pluck(freq * 2, ctx.currentTime + i * 0.045, 0.5, 0.02, "sine"); // octave shimmer
     });
 
-    // ---- warm sustained chord underneath ----
+    //---- warm sustained chord underneath ----
     const chord = [523.25, 659.25, 783.99, 1046.50]; // C major-ish, bright
     chord.forEach((freq) => {
         const osc = ctx.createOscillator();
@@ -62,7 +62,7 @@ function playMagicSparkle(){
         osc.stop(start + 2.7);
     });
 
-    // ---- scattered twinkling sparkles ----
+    //---- scattered twinkling sparkles ----
     const sparkleNotes = [1046.50, 1174.66, 1318.51, 1568.00, 1760.00, 2093.00];
     for (let i = 0; i < 14; i++){
         const freq = sparkleNotes[Math.floor(Math.random() * sparkleNotes.length)];
@@ -70,7 +70,7 @@ function playMagicSparkle(){
         pluck(freq, start, 0.35, 0.045, "sine");
     }
 
-    // ---- soft rising "wand whoosh" ----
+    //---- soft rising ----
     const bufferSize = ctx.sampleRate * 0.8;
     const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
     const data = buffer.getChannelData(0);
@@ -92,7 +92,7 @@ function playMagicSparkle(){
     noise.start();
 }
 
-// A soft paper-rustle burst
+// soft paper-rustle burst
 function playRustle(){
     const ctx = new (window.AudioContext || window.webkitAudioContext)();
     const bufferSize = ctx.sampleRate * 0.4;
